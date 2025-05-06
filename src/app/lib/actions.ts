@@ -1,10 +1,12 @@
+'use server';
+
 import { z } from 'zod';
-import { signup, login } from '@/auth/auth';
+import { signup, login } from '@/auth';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
-import { createClient } from '@/utils/supabase/server';
-import { getEmbedding } from '@/utils/gemini/embeddings';
-import { createAdminClient } from '@/utils/supabase/admin';
+import { createClient } from '@/app/utils/supabase/server';
+import { getEmbedding } from '@/app/utils/gemini/embeddings';
+import { createAdminClient } from '@/app/utils/supabase/admin';
 
 const CompanyFormSchema = z.object({
   company_name: z.string(),
