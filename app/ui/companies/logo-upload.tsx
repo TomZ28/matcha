@@ -21,14 +21,21 @@ export default function LogoUpload({
 
   useEffect(() => {
     async function downloadImage(path: string) {
-      try {
-        const { data, error } = await supabase.storage.from('logos').download(path)
-        if (error) {
-          throw error
-        }
+      const isAbsoluteUrl = (url: string): boolean => {
+        return /^https?:\/\//i.test(url);
+      };
 
-        const url = URL.createObjectURL(data)
-        setLogoUrl(url)
+      if (isAbsoluteUrl(path)) {
+        setLogoUrl(path)
+        return;
+      }
+
+      try {
+        const { data } = await supabase.storage.from('logos').getPublicUrl(path)
+
+        if (data?.publicUrl) {
+          setLogoUrl(data.publicUrl)
+        }
       } catch (error) {
         console.log('Error downloading image: ', error)
       }

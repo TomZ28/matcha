@@ -45,8 +45,8 @@ create trigger on_auth_user_created
   for each row execute procedure public.handle_new_user();
 
 -- Set up avatar storage
-insert into storage.buckets (id, name)
-  values ('avatars', 'avatars');
+insert into storage.buckets (id, name, public)
+  values ('avatars', 'avatars', true);
 
 -- Set up access controls for storage
 create policy "Avatar images are publicly accessible." on storage.objects
@@ -56,8 +56,8 @@ create policy "Anyone can upload an avatar." on storage.objects
   for insert with check (bucket_id = 'avatars');
 
 -- Set up logo storage
-insert into storage.buckets (id, name)
-  values ('logos', 'logos');
+insert into storage.buckets (id, name, public)
+  values ('logos', 'logos', true);
 
 -- Set up access controls for storage
 create policy "Logo images are publicly accessible." on storage.objects

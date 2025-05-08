@@ -2,6 +2,8 @@
 
 import Image from 'next/image';
 import { BuildingOffice2Icon } from '@heroicons/react/24/outline';
+import { createClient } from '../utils/supabase/client';
+import { useEffect, useState } from 'react';
 
 interface CompanyLogoProps {
   logoUrl?: string | null;
@@ -16,6 +18,34 @@ export default function CompanyLogo({
   size = 'md',
   className = '',
 }: CompanyLogoProps) {
+  const supabase = createClient()
+  const [companyLogoUrl, setCompanyLogoUrl] = useState<string | null>(null)
+
+  useEffect(() => {
+    async function downloadImage(path: string) {
+      const isAbsoluteUrl = (url: string): boolean => {
+        return /^https?:\/\//i.test(url);
+      };
+
+      if (isAbsoluteUrl(path)) {
+        setCompanyLogoUrl(path)
+        return;
+      }
+      
+      try {
+        const { data } = await supabase.storage.from('logos').getPublicUrl(path)
+
+        if (data?.publicUrl) {
+          setCompanyLogoUrl(data.publicUrl)
+        }
+      } catch (error) {
+        console.log('Error downloading image: ', error)
+      }
+    }
+
+    if (logoUrl) downloadImage(logoUrl)
+  }, [logoUrl, supabase])
+  
   // Determine dimensions based on size
   const dimensions = {
     sm: { container: 'w-10 h-10', icon: 'w-6 h-6' },
@@ -30,11 +60,11 @@ export default function CompanyLogo({
     lg: 80,
   };
 
-  if (logoUrl) {
+  if (companyLogoUrl) {
     return (
       <div className={`${dimensions[size].container} overflow-hidden rounded-md border border-gray-200 ${className}`}>
         <Image
-          src={logoUrl}
+          src={companyLogoUrl}
           alt={`${companyName} logo`}
           width={pixelSize[size]}
           height={pixelSize[size]}

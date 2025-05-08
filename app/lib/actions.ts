@@ -12,6 +12,7 @@ const CompanyFormSchema = z.object({
   company_name: z.string(),
   location: z.string(),
   description: z.string(),
+  logo_url: z.string().optional().nullable(),
 });
 
 const JobFormSchema = z.object({
@@ -36,6 +37,7 @@ export type CompanyState = {
     company_name?: string[];
     location?: string[];
     description?: string[];
+    logo_url?: string[];
   };
   message?: string | null;
 };
@@ -142,6 +144,7 @@ export async function createCompany(prevState: CompanyState, formData: FormData)
     company_name: formData.get('company-name'),
     location: formData.get('location'),
     description: formData.get('description'),
+    logo_url: formData.get('logo-url'),
   }
 
   const parsedFormData = CompanyFormSchema.safeParse(rawFormData);
@@ -154,7 +157,12 @@ export async function createCompany(prevState: CompanyState, formData: FormData)
     };
   }
 
-  const { company_name, location, description } = parsedFormData.data;
+  const {
+    company_name,
+    location,
+    description,
+    logo_url
+  } = parsedFormData.data;
 
   let redirectPath = '/dashboard/companies'
   // Insert data into the database
@@ -165,7 +173,8 @@ export async function createCompany(prevState: CompanyState, formData: FormData)
       .insert({
         company_name,
         location,
-        description
+        description,
+        logo_url
       })
       .select()
       .single();
