@@ -1,7 +1,7 @@
 'use server';
 
 import { z } from 'zod';
-import { signup, login } from '@/app/auth/auth';
+import { signup, login, forgotPassword, resetPassword } from '@/app/auth/auth';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { createClient } from '@/app/utils/supabase/server';
@@ -744,5 +744,84 @@ export async function createJobApplication(jobId: string, companyId: string) {
   } catch (error) {
     console.error('Error creating job application:', error);
     return { success: false, message: 'Failed to apply for this job' };
+  }
+}
+
+export type ForgotPasswordState = {
+  message?: string | null;
+  success: boolean;
+};
+
+export async function forgotPasswordAction(
+  prevState: ForgotPasswordState, 
+  formData: FormData
+): Promise<ForgotPasswordState> {
+  try {
+    const validatedFields = z.object({
+      email: z.string().email(),
+    }).safeParse({
+      email: formData.get('email'),
+    });
+
+    if (!validatedFields.success) {
+      return { 
+        message: 'Please enter a valid email address.',
+        success: false 
+      };
+    }
+
+    await forgotPassword(formData);
+    return { success: true };
+  } catch (error) {
+    console.error('Forgot password error:', error);
+    return { 
+      message: 'An error occurred. Please try again.',
+      success: false 
+    };
+  }
+}
+
+export type ResetPasswordState = {
+  message?: string | null;
+  success: boolean;
+};
+
+export async function resetPasswordAction(
+  prevState: ResetPasswordState, 
+  formData: FormData
+): Promise<ResetPasswordState> {
+  try {
+    const validatedFields = z.object({
+      password: z.string().min(6),
+      confirm_password: z.string().min(6),
+    }).safeParse({
+      password: formData.get('password'),
+      confirm_password: formData.get('confirm_password'),
+    });
+
+    if (!validatedFields.success) {
+      return { 
+        message: 'Password must be at least 6 characters.',
+        success: false 
+      };
+    }
+
+    const { password, confirm_password } = validatedFields.data;
+
+    if (password !== confirm_password) {
+      return {
+        message: 'Passwords do not match.',
+        success: false
+      };
+    }
+
+    await resetPassword(formData);
+    return { success: true };
+  } catch (error) {
+    console.error('Reset password error:', error);
+    return { 
+      message: 'An error occurred. Please try again.',
+      success: false 
+    };
   }
 }

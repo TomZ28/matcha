@@ -11,6 +11,7 @@ import { useActionState } from 'react';
 import { authenticate } from '@/app/lib/actions';
 import { useSearchParams } from 'next/navigation';
 import { useFormStatus } from 'react-dom';
+import Link from 'next/link';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -78,6 +79,11 @@ export default function LoginForm() {
             <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
           </div>
         </div>
+      </div>
+      <div className="text-right text-sm">
+        <Link href="/forgot-password" className="text-[#44624a] hover:text-[#3a553f]">
+          Forgot your password?
+        </Link>
       </div>
       <input type="hidden" name="redirectTo" value={callbackUrl} />
       <SubmitButton />

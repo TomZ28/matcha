@@ -106,3 +106,69 @@ export async function signout() {
   redirect('/login')
 }
 
+export async function forgotPassword(formData: FormData) {
+  try {
+    const supabase = await createClient()
+
+    const rawFormData = {
+      email: formData.get('email'),
+    }
+
+    const parsedFormData = z
+      .object({
+        email: z.string().email(),
+      })
+      .safeParse(rawFormData);
+    
+    if (!parsedFormData.success) {
+      throw new Error('Invalid email address.');
+    }
+    
+    const { email } = parsedFormData.data;
+  
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: getURL() + 'login'
+    });
+  
+    if (error) {
+      throw error;
+    }
+  } catch (error) {
+    console.log(error)
+    redirect('/error')
+  }
+}
+
+export async function resetPassword(formData: FormData) {
+  try {
+    const supabase = await createClient()
+
+    const rawFormData = {
+      password: formData.get('password'),
+    }
+
+    const parsedFormData = z
+      .object({
+        password: z.string().min(6),
+      })
+      .safeParse(rawFormData);
+    
+    if (!parsedFormData.success) {
+      throw new Error('Password must be at least 6 characters.');
+    }
+    
+    const { password } = parsedFormData.data;
+  
+    const { error } = await supabase.auth.updateUser({
+      password
+    });
+  
+    if (error) {
+      throw error;
+    }
+  } catch (error) {
+    console.log(error)
+    redirect('/error')
+  }
+}
+
