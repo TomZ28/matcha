@@ -16,9 +16,21 @@ export default async function LoginPage() {
   const supabase = await createClient();
   const { data: { session } } = await supabase.auth.getSession();
   
-  // If already logged in, redirect to dashboard
+  // If already logged in, check if user has profile
   if (session) {
-    redirect('/dashboard');
+    const user = session.user;
+
+    const { data: existingProfile } = await supabase
+      .from('profiles')
+      .select('first_name, last_name')
+      .eq('id', user.id)
+      .single();
+    
+      if (!existingProfile || !existingProfile.first_name || !existingProfile.last_name) {
+        redirect('/dashboard/profile')
+      } else {
+        redirect('/dashboard');
+      }
   }
 
   return (
