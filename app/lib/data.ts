@@ -470,7 +470,7 @@ export async function getMatchPercentOfUserToJob(job_id: string) {
 
     if (error) throw new Error(error.message);
     
-    return data;
+    return processMatchPercent(data);
   } catch (e) {
     console.log(e);
     return null;
