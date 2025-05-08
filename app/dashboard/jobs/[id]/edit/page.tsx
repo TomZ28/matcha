@@ -9,8 +9,8 @@ export const metadata: Metadata = {
   title: 'Edit Job',
 };
 
-export default async function Page(props: { params: { id: string } }) {
-  const { id } = await props.params;
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const job = await fetchJobPostingByIdServer(id);
 
   if (!job) {

@@ -2,7 +2,7 @@
 
 import { fetchUserById, fetchUserEducation, fetchUserExperience, userIsUser } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
-import { MapPinIcon, EnvelopeIcon, UserCircleIcon, AcademicCapIcon, BriefcaseIcon, IdentificationIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { MapPinIcon, EnvelopeIcon, UserCircleIcon, AcademicCapIcon, BriefcaseIcon, IdentificationIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
 import { useEffect, useState } from 'react';
 import { navigateToEditProfile } from '@/app/lib/user-actions';

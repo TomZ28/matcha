@@ -6,12 +6,12 @@ import Link from 'next/link';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 
 type Props = {
-  params: { id: string }
-  searchParams: { [key: string]: string | string[] | undefined }
+  params: Promise<{ id: string }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 };
 
 export async function generateMetadata(
-  { params, searchParams }: Props,
+  { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const { id } = await params;
@@ -26,12 +26,12 @@ export default async function Page({
   params,
   searchParams,
 }: {
-  params: { id: string };
-  searchParams?: {
+  params: Promise<{ id: string }>;
+  searchParams?: Promise<{
     query?: string;
     page?: string;
     sort?: string;
-  };
+  }>;
 }) {
   const { id: companyId } = await params;
   const loadedSearchParams = await searchParams;

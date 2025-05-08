@@ -29,7 +29,7 @@ export default function Form() {
           />
           <div className="flex-1">
             <h2 className="text-lg font-medium text-gray-800 mb-1">Company Logo</h2>
-            <p className="text-gray-600 text-sm mb-3">Upload a logo to represent your company's brand.</p>
+            <p className="text-gray-600 text-sm mb-3">Upload a logo to represent your company&apos;s brand.</p>
             <p className="text-[#8ba888] text-xs">Recommended: Square image, at least 300x300 pixels</p>
           </div>
         </div>

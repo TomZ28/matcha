@@ -84,13 +84,6 @@ export default function SuggestedTalents({
     }
   }, [inView, hasMore, loading, isFullPage]);
 
-  // Helper function for display name with fallback
-  const getDisplayName = (user: any) => {
-    const firstName = user.first_name || 'Matcha';
-    const lastName = user.last_name || 'User';
-    return `${firstName} ${lastName}`;
-  };
-
   // Helper function to capitalize first letter
   const capitalizeFirstLetter = (text: string): string => {
     return text.charAt(0).toUpperCase() + text.slice(1);

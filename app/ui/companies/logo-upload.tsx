@@ -57,6 +57,7 @@ export default function LogoUpload({
 
       onUpload(filePath)
     } catch (error) {
+      console.log(error)
       alert('Error uploading logo!')
     } finally {
       setUploading(false)

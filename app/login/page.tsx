@@ -38,7 +38,7 @@ export default async function LoginPage() {
             <LoginForm />
           </Suspense>
           <div className="mt-6 text-center text-sm text-gray-600">
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <Link href="/signup" className="text-[#44624a] hover:text-[#3a553f] font-medium">
               Create an account
             </Link>

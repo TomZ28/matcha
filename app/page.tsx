@@ -61,7 +61,7 @@ export default function Page() {
             </div>
             <div className="relative h-64 md:h-auto">
               <Image
-                src="/placeholder-company.svg"
+                src="/placeholder-avatar.svg"
                 alt="Professional workplace with people collaborating"
                 width={600}
                 height={500}
@@ -97,7 +97,7 @@ export default function Page() {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">For Employers</h3>
               <p className="text-gray-600">
-                Post job opportunities, review applications, and find the perfect candidate for your company's needs.
+                Post job opportunities, review applications, and find the perfect candidate for your company&apos;s needs.
               </p>
             </div>
             

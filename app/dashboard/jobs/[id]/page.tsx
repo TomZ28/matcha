@@ -4,12 +4,12 @@ import { Metadata, ResolvingMetadata } from 'next';
 import JobDetails from '@/app/ui/jobs/job-details';
 
 type Props = {
-  params: { id: string }
-  searchParams: { [key: string]: string | string[] | undefined }
+  params: Promise<{ id: string }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 };
 
 export async function generateMetadata(
-  { params, searchParams }: Props,
+  { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const { id } = await params;
@@ -24,7 +24,7 @@ export async function generateMetadata(
   }
 }
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }: Props) {
   const loadedParams = await params;
   return (
     <main> {/*  className="max-w-6xl mx-auto p-4 md:p-8" */}

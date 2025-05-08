@@ -10,7 +10,7 @@ import {
   BriefcaseIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import clsx from 'clsx';
 import { useState, useEffect } from 'react';
 import { createClient } from '@/app/utils/supabase/client';
@@ -32,7 +32,6 @@ const PROFILE_COMPLETE_KEY = 'matcha_profile_complete';
 
 export default function NavLinks() {
   const pathname = usePathname();
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [hasCompleteProfile, setHasCompleteProfile] = useState<boolean | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -66,7 +65,7 @@ export default function NavLinks() {
         return;
       }
 
-      const { data: profile, error } = await supabase
+      const { data: profile } = await supabase
         .from('userprofiles')
         .select('first_name, last_name')
         .eq('id', user.id)

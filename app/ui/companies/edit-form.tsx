@@ -2,7 +2,6 @@
 
 import { CompanyForm } from '@/app/lib/definitions';
 import {
-  CurrencyDollarIcon,
   MapPinIcon,
   BuildingOffice2Icon,
 } from '@heroicons/react/24/outline';

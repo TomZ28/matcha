@@ -59,7 +59,6 @@ export default function JobApplicationsList({
   const [loading, setLoading] = useState(safeInitialApplications.length === 0);
   const [initialLoading, setInitialLoading] = useState(safeInitialApplications.length === 0);
   const [error, setError] = useState<string | null>(null);
-  const [shouldRefresh, setShouldRefresh] = useState(false);
   
   const searchParams = useSearchParams();
   const pathname = usePathname();

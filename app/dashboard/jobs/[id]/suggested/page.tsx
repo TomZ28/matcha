@@ -1,17 +1,17 @@
 import { fetchJobPostingByIdServer, userIsCompanyEmployeeServer } from '@/app/lib/server-data';
 import { notFound, redirect } from 'next/navigation';
 import { Metadata, ResolvingMetadata } from 'next';
-import { ArrowLeftIcon, UserGroupIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import SuggestedTalents from '@/app/ui/jobs/suggested-talents';
 import Link from 'next/link';
 
 type Props = {
-  params: { id: string }
-  searchParams: { [key: string]: string | string[] | undefined }
+  params: Promise<{ id: string }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 };
 
 export async function generateMetadata(
-  { params, searchParams }: Props,
+  { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const { id } = await params;
@@ -22,7 +22,7 @@ export async function generateMetadata(
   }
 }
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }: Props) {
   const { id } = await params;
   
   // Fetch the job to show details
@@ -56,7 +56,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           Suggested Talents for {job.title}
         </h1>
         <p className="text-gray-600">
-          Candidates that match this job's requirements
+          Candidates that match this job&apos;s requirements
         </p>
       </div>
 

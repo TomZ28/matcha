@@ -11,7 +11,7 @@ import {
   CheckIcon,
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
-import { EducationState, updateUserEducation } from '@/app/lib/actions';
+import { updateUserEducation } from '@/app/lib/actions';
 import { useActionState, useState, useEffect } from 'react';
 
 export default function EducationForm({

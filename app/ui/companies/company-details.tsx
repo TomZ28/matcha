@@ -2,7 +2,7 @@
 
 import { fetchCompanyById, userIsCompanyEmployee, fetchPaginatedJobsByCompany } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
-import { MapPinIcon, BuildingOffice2Icon, BriefcaseIcon, ArrowRightIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { MapPinIcon, BuildingOffice2Icon, BriefcaseIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
 import Link from 'next/link';
 import { navigateToEditCompany } from '@/app/lib/company-actions';
@@ -182,7 +182,7 @@ export default function CompanyDetails({ id }: { id: string }) {
             <div className="col-span-full bg-[#f0f5f1] rounded-lg p-6 text-center">
               <BriefcaseIcon className="h-12 w-12 mx-auto text-[#8ba888] mb-3" />
               <h3 className="text-gray-700 font-medium mb-1">No job postings</h3>
-              <p className="text-gray-500 text-sm">This company hasn't posted any jobs yet.</p>
+              <p className="text-gray-500 text-sm">This company hasn&apos;t posted any jobs yet.</p>
             </div>
           )}
         </div>

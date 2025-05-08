@@ -5,8 +5,6 @@ import { notFound } from 'next/navigation';
 import { 
   MapPinIcon, 
   BriefcaseIcon, 
-  BuildingOffice2Icon,
-  CalendarIcon,
   CurrencyDollarIcon,
   ClockIcon,
   ArrowLeftIcon,

@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix --ext .ts,.tsx ."
   },
   "dependencies": {
     "@google/genai": "^0.12.0",
@@ -29,6 +30,8 @@
   "devDependencies": {
     "@types/node": "22.10.7",
     "@types/react": "19.0.7",
-    "@types/react-dom": "19.0.3"
+    "@types/react-dom": "19.0.3",
+    "eslint": "^9.26.0",
+    "eslint-config-next": "^15.3.2"
   }
 }

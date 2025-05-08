@@ -1,9 +1,8 @@
 'use client';
 
-import { UserIcon, BriefcaseIcon, BellIcon } from '@heroicons/react/24/outline';
+import { BriefcaseIcon, BellIcon } from '@heroicons/react/24/outline';
 import { fetchUser, fetchJobApplicationsByUserId } from '@/app/lib/data';
 import { useEffect, useState } from 'react';
-import { inter } from '@/app/ui/fonts';
 
 function Card({
   title,
@@ -42,14 +41,12 @@ function Card({
 
 export default function UserStatCards() {
   const [activeApplications, setActiveApplications] = useState<number>(0);
-  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const user = await fetchUser();
         if (user) {
-          setUserId(user.id);
           const applications = await fetchJobApplicationsByUserId(user.id);
           
           // Count applications that are either in review or applied status

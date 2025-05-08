@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { UserIcon, AcademicCapIcon, BriefcaseIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import Form from '@/app/ui/profile/edit-form';
 import EducationForm from '@/app/ui/profile/education-form';
@@ -46,7 +46,7 @@ export default function ProfileTabs({
             <div className="ml-3">
               <p className="text-sm text-yellow-700">
                 <strong>Welcome to Matcha!</strong> Please add your first and last name to access all features. 
-                Once completed, you'll be able to browse jobs, apply to positions, connect with companies, 
+                Once completed, you&apos;ll be able to browse jobs, apply to positions, connect with companies, 
                 or post job listings and hire talent.
               </p>
             </div>

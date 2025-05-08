@@ -10,11 +10,11 @@ export const metadata: Metadata = {
 export default async function Page({
   searchParams,
 }: {
-  searchParams?: {
+  searchParams?: Promise<{
     query?: string;
     page?: string;
     sort?: string;
-  };
+  }>;
 }) {
   // Get current user - this needs to be done server-side for authentication
   const user = await fetchUserServer();
@@ -26,7 +26,6 @@ export default async function Page({
 
   // Pass query params to the ApplicationGrid component
   const params = await searchParams;
-  const query = params?.query || '';
   const sort = params?.sort || 'date';
 
   return (

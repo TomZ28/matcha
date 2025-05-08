@@ -52,6 +52,7 @@ function formatDate(dateString: string): string {
       return `${months} ${months === 1 ? 'month' : 'months'} ago`;
     }
   } catch (e) {
+    console.log(e);
     return 'Invalid date';
   }
 }
