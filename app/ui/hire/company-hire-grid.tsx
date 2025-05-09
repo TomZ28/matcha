@@ -134,11 +134,6 @@ export default function CompanyHireGrid({ initialCompanies }: { initialCompanies
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {companies.map((company) => (
-            <Link 
-              key={company.id} 
-              href={`/dashboard/companies/${company.id}/jobs/create`}
-              className="block transition-transform hover:scale-105"
-            >
               <div className="bg-white shadow-md rounded-lg overflow-hidden border border-[#c0cfb2] h-full flex flex-col hover:shadow-lg">
                 <div className="p-4 bg-[#44624a]">
                   <div className="flex items-center gap-4">
@@ -160,14 +155,29 @@ export default function CompanyHireGrid({ initialCompanies }: { initialCompanies
                     {company.description || 'No description available'}
                   </p>
                   <div className="mt-4 pt-4 border-t border-gray-100">
-                    <div className="inline-flex items-center text-sm font-medium text-[#44624a]">
-                      <PlusCircleIcon className="h-4 w-4 mr-1" />
-                      Create New Job Posting
+                    <div>
+                      <Link  
+                        href={`/dashboard/companies/${company.id}/jobs/create`}
+                        className="inline-flex items-center text-sm font-medium text-[#44624a] transition-transform hover:scale-105"
+                      >
+                        <PlusCircleIcon className="h-4 w-4 mr-1" />
+                        Create New Job Posting
+                      </Link>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="mt-1">
+                      <Link  
+                        href={`/dashboard/companies/${company.id}/jobs/`}
+                        className="inline-flex items-center text-sm font-medium text-[#44624a] transition-transform hover:scale-105"
+                      >
+                        <PlusCircleIcon className="h-4 w-4 mr-1" />
+                        View All Job Postings
+                      </Link>
                     </div>
                   </div>
                 </div>
               </div>
-            </Link>
           ))}
         </div>
       )}
