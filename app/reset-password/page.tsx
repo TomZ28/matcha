@@ -13,10 +13,10 @@ export const metadata = {
 export default async function ResetPasswordPage() {
   // Check if user is authenticated (after clicking the reset password link)
   const supabase = await createClient();
-  const { data: { session } } = await supabase.auth.getSession();
+  const { data: { user } } = await supabase.auth.getUser()
   
   // If not authenticated, redirect to login
-  if (!session) {
+  if (!user) {
     redirect('/login');
   }
 
