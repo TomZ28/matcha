@@ -24,12 +24,13 @@ export async function generateMetadata(
   }
 }
 
-export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+export default async function Page({ params, searchParams }: Props) {
   const { id } = await params;
+  const { jobId } = await searchParams;
 
   return (
     <main> {/*  className="max-w-6xl mx-auto p-4 md:p-8" */}
-      <ApplicationDetails id={id} />
+      <ApplicationDetails id={id} jobId={jobId} />
     </main>
   );
 }

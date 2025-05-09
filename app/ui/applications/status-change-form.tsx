@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { Button } from '@/app/ui/button';
 import { updateApplicationStatus } from '@/app/lib/actions';
-import { useRouter } from 'next/navigation';
 
 type ApplicationStatus = 'applied' | 'interview' | 'offer' | 'not selected';
 
@@ -13,7 +12,6 @@ interface StatusChangeFormProps {
 }
 
 export default function StatusChangeForm({ applicationId, currentStatus }: StatusChangeFormProps) {
-  const router = useRouter();
   const [status, setStatus] = useState<ApplicationStatus>(currentStatus as ApplicationStatus);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -37,7 +35,7 @@ export default function StatusChangeForm({ applicationId, currentStatus }: Statu
     
     try {
       await updateApplicationStatus(applicationId, status);
-      router.refresh();
+      window.location.reload();
     } catch (error) {
       setErrorMessage('Failed to update application status. Please try again.');
       console.error('Error updating status:', error);

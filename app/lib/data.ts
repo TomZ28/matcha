@@ -453,18 +453,25 @@ export async function userIsUser(userId: string) {
     }
   }
 
-export async function getMatchPercentOfUserToJob(job_id: string) {
+export async function getMatchPercentOfUserToJob(
+  job_id: string,
+  user_id: string | null = null
+) {
   const supabase = await createClient();
 
   try {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+    if (!user_id) {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
 
-    if (!user) throw new Error("Error getting user");
+      if (!user) throw new Error("Error getting user");
+
+      user_id = user.id;
+    }
 
     const { data, error } = await supabase.rpc('get_match_percent', {
-      user_id: user.id,
+      user_id,
       job_id,
     });
 

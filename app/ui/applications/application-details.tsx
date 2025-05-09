@@ -12,7 +12,13 @@ import UserAvatar from '../user-avatar';
 import StatusProgressBar from './status-progress-bar';
 import { formatDateTime } from '@/app/lib/utils';
 
-export default function ApplicationDetails({ id }: { id: string }) {
+export default function ApplicationDetails({
+  id,
+  jobId
+}: {
+  id: string,
+  jobId: string | string[] | undefined
+}) {
   const [application, setApplication] = useState<any>(null);
   const [matchPercent, setMatchPercent] = useState<number | null>(null);
   const [isApplicant, setIsApplicant] = useState(false);
@@ -36,7 +42,12 @@ export default function ApplicationDetails({ id }: { id: string }) {
         const employeeStatus = await userIsCompanyEmployee(applicationData.company.id);
         setIsEmployee(employeeStatus);
 
-        const matchPercentData = await getMatchPercentOfUserToJob(applicationData.job.id);
+        let matchPercentData;
+        if (employeeStatus) {
+          matchPercentData = await getMatchPercentOfUserToJob(applicationData.job.id, applicationData.applicant.id);
+        } else {
+          matchPercentData = await getMatchPercentOfUserToJob(applicationData.job.id);
+        }
         setMatchPercent(matchPercentData);
       } catch (err) {
         console.error('Error loading application data:', err);
@@ -74,7 +85,7 @@ export default function ApplicationDetails({ id }: { id: string }) {
     <>
       <div className="mb-6">
         <Link 
-          href="/dashboard/applications" 
+          href={jobId ? `/dashboard/jobs/${jobId}/applications` : '/dashboard/applications'}
           className="inline-flex items-center text-sm font-medium text-[#44624a] hover:text-[#3a553f]"
         >
           <ArrowLeftIcon className="h-4 w-4 mr-1" />

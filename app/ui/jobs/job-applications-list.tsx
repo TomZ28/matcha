@@ -253,7 +253,7 @@ export default function JobApplicationsList({
           {applications.map((application) => (
             <Link 
               key={application.id} 
-              href={`/dashboard/applications/${application.id}`}
+              href={`/dashboard/applications/${application.id}?jobId=${jobId}`}
               className="group"
             >
               <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 transition-all hover:shadow-lg hover:border-[#8ba888] group-hover:translate-y-[-2px]">
