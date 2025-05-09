@@ -13,6 +13,7 @@ import { Button } from '@/app/ui/button';
 import { JobState, updateJob } from '@/app/lib/actions';
 import { useActionState, useState } from 'react';
 import Image from 'next/image';
+import CompanyLogo from '../company-logo';
 
 export default function Form({
   job,
@@ -44,19 +45,19 @@ export default function Form({
         {/* Company Info */}
         {job.company && (
           <div className="mb-8 flex items-center gap-3">
-            <div className="flex-shrink-0 w-12 h-12 rounded-full overflow-hidden border border-gray-200">
               {job.company.logo_url ? (
-                <Image
-                  src={job.company.logo_url}
-                  alt={`${job.company.company_name} logo`}
-                  width={48}
-                  height={48}
-                  className="object-cover w-full h-full"
-                />
+                <div className="flex-shrink-0 items-center rounded-full overflow-hidden border border-gray-200">
+                  <CompanyLogo
+                    logoUrl={job.company.logo_url}
+                    companyName={job.company.company_name}
+                    size="md"
+                  />
+                </div>
               ) : (
-                <BuildingOffice2Icon className="h-12 w-12 text-gray-400 p-2" />
+                <div className="flex-shrink-0 w-12 h-12 rounded-full overflow-hidden border border-gray-200">
+                  <BuildingOffice2Icon className="h-12 w-12 text-gray-400 p-2" />
+                </div>
               )}
-            </div>
             <div>
               <h2 className="font-medium text-gray-800">{job.company.company_name}</h2>
               <p className="text-sm text-gray-500">Editing job posting</p>

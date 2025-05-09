@@ -10,6 +10,7 @@ import { useInView } from 'react-intersection-observer';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { MagnifyingGlassIcon, MapPinIcon, BriefcaseIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { useDebouncedCallback } from 'use-debounce';
+import CompanyLogo from '../company-logo';
 
 interface JobGridProps {
   initialJobs: FormattedJobsTable[];
@@ -290,15 +291,25 @@ export default function JobGrid({
                 <div className="p-4 flex-grow">
                   {!companyId && (
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="bg-white rounded-full p-1 w-10 h-10 flex items-center justify-center border border-gray-200">
-                        <Image
-                          src={job.company?.logo_url || '/placeholder-company.svg'}
-                          alt={`${job.company?.company_name}'s logo`}
-                          width={28}
-                          height={28}
-                          className="rounded-full object-cover"
-                        />
-                      </div>
+                        {job.company.logo_url ? (
+                          <div className="bg-white flex-shrink-0 items-center rounded-full overflow-hidden border border-gray-200">
+                            <CompanyLogo
+                              logoUrl={job.company.logo_url}
+                              companyName={job.company.company_name}
+                              size="sm"
+                            />
+                          </div>
+                        ) : (
+                          <div className="bg-white rounded-full p-1 w-10 h-10 flex items-center justify-center border border-gray-200">
+                            <Image
+                              src={job.company?.logo_url || '/placeholder-company.svg'}
+                              alt={`${job.company?.company_name}'s logo`}
+                              width={28}
+                              height={28}
+                              className="rounded-full object-cover"
+                            />
+                          </div>
+                        )}
                       <div>
                         <h3 className="font-medium text-[#44624a]">{job.company?.company_name}</h3>
                         <div className="flex items-center text-gray-600 text-sm">

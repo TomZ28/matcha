@@ -16,7 +16,7 @@ export default function LogoUpload({
   onUpload: (url: string) => void
 }) {
   const supabase = createClient()
-  const [logoUrl, setLogoUrl] = useState<string | null>(url)
+  const [logoUrl, setLogoUrl] = useState<string | null>(null)
   const [uploading, setUploading] = useState(false)
 
   useEffect(() => {

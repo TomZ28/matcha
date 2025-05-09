@@ -6,6 +6,7 @@ import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import Link from 'next/link';
 import { inter } from '@/app/ui/fonts';
+import CompanyLogo from '../company-logo';
 
 function Button({ children, className, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { className?: string }) {
   return (
@@ -104,12 +105,11 @@ export default function JobMatchesTable() {
                 <div className="flex items-start">
                   <div className="h-12 w-12 relative flex-shrink-0 mr-4">
                     {job.company.logo_url ? (
-                      <Image
-                        src={job.company.logo_url}
-                        alt={job.company.company_name}
-                        width={48}
-                        height={48}
-                        className="rounded-md object-cover"
+                      <CompanyLogo
+                        logoUrl={job.company.logo_url}
+                        companyName={job.company.company_name}
+                        size="md"
+                        className="bg-white p-1"
                       />
                     ) : (
                       <div className="h-12 w-12 rounded-md bg-gray-200 flex items-center justify-center">

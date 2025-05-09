@@ -9,6 +9,7 @@ import { useInView } from 'react-intersection-observer';
 import { useSearchParams } from 'next/navigation';
 import { MapPinIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 import HireSearch from './hire-search';
+import CompanyLogo from '../company-logo';
 
 interface Company {
   id: string;
@@ -141,15 +142,12 @@ export default function CompanyHireGrid({ initialCompanies }: { initialCompanies
               <div className="bg-white shadow-md rounded-lg overflow-hidden border border-[#c0cfb2] h-full flex flex-col hover:shadow-lg">
                 <div className="p-4 bg-[#44624a]">
                   <div className="flex items-center gap-4">
-                    <div className="bg-white rounded-full p-1 w-14 h-14 flex items-center justify-center">
-                      <Image
-                        src={company.logo_url || '/placeholder-company.svg'}
-                        alt={`${company.company_name}'s logo`}
-                        width={48}
-                        height={48}
-                        className="rounded-full object-cover"
-                      />
-                    </div>
+                    <CompanyLogo
+                      logoUrl={company.logo_url}
+                      companyName={company.company_name}
+                      size="md"
+                      className="bg-white p-1"
+                    />
                     <h2 className="text-white font-semibold text-lg truncate">{company.company_name}</h2>
                   </div>
                 </div>
