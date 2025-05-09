@@ -76,7 +76,7 @@ create table usereducations (
   description text,
   start_date date,
   end_date date,
-  userid uuid not null references public.userprofiles
+  userid uuid not null references public.userprofiles on delete cascade
 );
 
 alter table usereducations
@@ -103,7 +103,7 @@ create table userexperiences (
   description text,
   start_date date,
   end_date date,
-  userid uuid not null references public.userprofiles
+  userid uuid not null references public.userprofiles on delete cascade
 );
 
 alter table userexperiences
@@ -141,8 +141,8 @@ create policy "Companies can be created by everyone." on companyprofiles
 
 -- Table to map company-employee relationship
 create table companyemployees (
-  companyid bigint not null references public.companyprofiles,
-  userid uuid not null references public.userprofiles,
+  companyid bigint not null references public.companyprofiles on delete cascade,
+  userid uuid not null references public.userprofiles on delete cascade,
 
   primary key(companyid, userid)
 );
@@ -194,7 +194,7 @@ create table jobpostings (
   posted_date timestamptz,
   job_type jobtype,
   salary_range text,
-  companyid bigint not null references public.companyprofiles
+  companyid bigint not null references public.companyprofiles on delete cascade
 );
 
 alter table jobpostings
@@ -217,9 +217,9 @@ create type jobapplicationstatus as enum ('applied', 'withdrawn', 'not selected'
 
 create table jobapplications (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  jobid bigint not null references public.jobpostings,
-  companyid bigint not null references public.companyprofiles,
-  userid uuid not null references public.userprofiles,
+  jobid bigint not null references public.jobpostings on delete cascade,
+  companyid bigint not null references public.companyprofiles on delete cascade,
+  userid uuid not null references public.userprofiles on delete cascade,
   application_status jobapplicationstatus default 'applied',
   application_date timestamptz,
   unique (jobid, userid)
@@ -242,7 +242,7 @@ create policy "Users can delete their own application." on jobapplications
 
 -- User and Job Embeddings
 create table userprofileembeddings (
-  id uuid references userprofiles not null primary key,
+  id uuid references userprofiles on delete cascade not null primary key,
   embedding_gemini_te004 vector(768)
 );
 
@@ -253,7 +253,7 @@ create policy "User profile embeddings are viewable by everyone." on userprofile
   for select using (true);
 
 create table jobpostingembeddings (
-  id bigint references jobpostings not null primary key,
+  id bigint references jobpostings on delete cascade not null primary key,
   embedding_gemini_te004 vector(768)
 );
 
