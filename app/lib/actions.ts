@@ -406,19 +406,29 @@ async function updateUserEmbedding(data: any) {
     experience
   } = data;
 
-  const educationString = String(education.map((entry: { school: any; degree: any; gpa: any; description: any; }) => {
-    const { school, degree, gpa, description } = entry;
-    return `Went to ${school} with degree in ${degree} and a gpa of ${gpa}. ${description}.`;
-  }));
+  const educationString = education
+    ? String(education.map((entry: { school: any; degree: any; gpa: any; description: any; }) => {
+        const { school, degree, gpa, description } = entry;
+        return `Went to ${school} with degree in ${degree} and a gpa of ${gpa}. ${description}.`;
+      }))
+    : 'No education inputted.';
 
-  const experienceString = String(experience.map((entry: { company: any; description: any; }) => {
-    const { company, description } = entry;
-    return `Worked at ${company}. ${description}.`;
-  }));
+  const experienceString = experience
+    ? String(experience.map((entry: { company: any; description: any; }) => {
+        const { company, description } = entry;
+        return `Worked at ${company}. ${description}.`;
+      }))
+    : 'No experience inputted.';
 
   const embedding = await getEmbedding(`
-    Description: ${String(data.summary)}
-    Skills: ${String(data.skills)}
+    Description: ${
+      data.summary
+      ? String(data.summary)
+      : 'No description inputted.'}
+    Skills: ${
+      data.skills
+      ? String(data.skills)
+      : 'No skills inputted.'}
     Education: ${educationString}
     Experience: ${experienceString}
   `);

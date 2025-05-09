@@ -44,5 +44,5 @@ export const processMatchPercent = (matchPercent: number) => {
   if (!matchPercent) {
     return 50;
   }
-  return Math.min(Math.round(matchPercent * 100) + 20, 100);
+  return Math.min(Math.round(matchPercent * 100) + 15, 100);
 }

@@ -1,4 +1,5 @@
 import { createClient } from '@/app/utils/supabase/server';
+import { processMatchPercent } from './utils';
 
 /**
  * Server-side data fetching functions
@@ -446,7 +447,7 @@ export async function fetchPaginatedApplicationsByJobIdServer(jobId: string, pag
         ...app,
         application_date,
         status: app.application_status || 'applied',
-        match_percent: app.match_percent || Math.floor(Math.random() * 41) + 60 // Random 60-100
+        match_percent: processMatchPercent(app.match_percent)
       };
     });
 
@@ -493,7 +494,7 @@ export async function fetchPaginatedJobsByCompanyServer(
     // Add a match percentage to each job
     const jobsWithMatch = data.map(job => ({
       ...job,
-      match_percent: Math.floor(Math.random() * 41) + 60 // Random number between 60-100
+      match_percent: processMatchPercent(job.match_percent)
     }));
 
     // If sorting by match percentage, sort the results in memory
