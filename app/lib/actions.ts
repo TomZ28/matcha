@@ -207,6 +207,7 @@ export async function updateCompany(
     company_name: formData.get('company-name'),
     location: formData.get('location'),
     description: formData.get('description'),
+    logo_url: formData.get('logo-url'),
   }
 
   const parsedFormData = CompanyFormSchema.safeParse(rawFormData);
@@ -219,7 +220,12 @@ export async function updateCompany(
     };
   }
 
-  const { company_name, location, description } = parsedFormData.data;
+  const {
+    company_name,
+    location,
+    description,
+    logo_url
+  } = parsedFormData.data;
 
   try {
     const supabase = await createClient();
@@ -228,7 +234,8 @@ export async function updateCompany(
       .update({
         company_name,
         location,
-        description
+        description,
+        logo_url
       })
       .eq('id', id);
 
